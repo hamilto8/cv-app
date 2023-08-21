@@ -1,0 +1,29 @@
+html,
+body {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.header {
+  width: 100%;
+  background-color: #cdcdcd;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0.2em;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #cdcdcd;
+  text-align: center;
+  padding: 0.2em;
+}
+
+.app-body {
+  margin-top: 2em;
+}

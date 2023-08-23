@@ -1,7 +1,7 @@
 const Header = () => {
   return (
     <>
-      <header className="header">Header</header>
+      <header className="header">CV App Home</header>
     </>
   );
 };

@@ -1,190 +1,263 @@
-import { useEffect, useState } from "react";
-import GeneralInfo from "./GeneralInfo";
-import EducationalInfo from "./EducationalInfo";
-import WorkInfo from "./WorkInfo";
-import Header from "./Header";
-import Footer from "./Footer";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import React, { useState, useEffect } from "react";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import SectionNav from "./components/Editor/SectionNav";
+import PersonalForm from "./components/Editor/PersonalForm";
+import WorkForm from "./components/Editor/WorkForm";
+import EducationForm from "./components/Editor/EducationForm";
+import SkillsForm from "./components/Editor/SkillsForm";
+import ProjectsForm from "./components/Editor/ProjectsForm";
+import CertificationsForm from "./components/Editor/CertificationsForm";
+import LanguagesForm from "./components/Editor/LanguagesForm";
+import CustomSectionForm from "./components/Editor/CustomSectionForm";
+import CVPreview from "./components/Preview/CVPreview";
 import ResumePDF from "./ResumePDF";
-
+import { PDFDownloadLink } from "@react-pdf/renderer";
+import { defaultCVData } from "./data/sampleData";
+import { Edit3, Eye, Download, CheckCircle2 } from "lucide-react";
 import "./styles/App.css";
 
+const STORAGE_KEY = "cv_studio_data";
+const THEME_KEY = "cv_studio_theme";
+const COLOR_KEY = "cv_studio_color";
+
 function App() {
-  const [generalInfo, setGeneralInfo] = useState({});
-  const [generalInfoSubmitted, setGeneralInfoSubmitted] = useState(false);
-  const [educationalInfo, setEducationalInfo] = useState({});
-  const [educationInfoSubmitted, setEducationInfoSubmitted] = useState(false);
-  const [workInfo, setWorkInfo] = useState({});
-  const [workInfoSubmitted, setWorkInfoSubmitted] = useState(false);
-  const [allInfoSubmitted, setAllInfoSubmitted] = useState(false);
+  // Load saved CV data or default sample
+  const [cvData, setCvData] = useState(() => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("antigravity_cv_studio_data");
+      if (saved) return JSON.parse(saved);
+    } catch (e) {
+      console.error("Failed to load CV from localStorage:", e);
+    }
+    return defaultCVData;
+  });
+
+  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || localStorage.getItem("antigravity_cv_theme") || "dark");
+  const [colorTheme, setColorTheme] = useState(() => {
+    const saved = localStorage.getItem(COLOR_KEY) || localStorage.getItem("antigravity_cv_color");
+    if (saved === "indigo" || saved === "royal" || saved === "violet" || saved === "slate") {
+      return "monochrome";
+    }
+    return saved || "monochrome";
+  });
+  const [fontFamily, setFontFamily] = useState("'Inter', sans-serif");
+  const [template, setTemplate] = useState("executive");
+  const [activeSection, setActiveSection] = useState("personal");
+  const [mobileTab, setMobileTab] = useState("editor"); // "editor" | "preview"
+  const [toast, setToast] = useState(null);
+
+  // Apply Theme and Color to DOM
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem(THEME_KEY, theme);
+  }, [theme]);
 
   useEffect(() => {
-    checkAllInfoSubmitted();
-  }, [generalInfoSubmitted, workInfoSubmitted, educationInfoSubmitted]);
+    document.documentElement.setAttribute("data-color", colorTheme);
+    localStorage.setItem(COLOR_KEY, colorTheme);
+  }, [colorTheme]);
 
-  const handleSchoolSubmit = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const data = {
-      schoolName: formData.get("schoolName"),
-      schoolMajor: formData.get("schoolMajor"),
-      schoolStartDate: formData.get("schoolStartDate"),
-      schoolEndDate: formData.get("schoolEndDate"),
-    };
-    setEducationalInfo(data);
-    setEducationInfoSubmitted(true);
-  };
-  const handleGeneralInfoSubmit = (e) => {
-    e.preventDefault();
-    console.log(e.target);
-    const formData = new FormData(e.target);
-    const data = {
-      fullName: formData.get("fullName"),
-      personalEmail: formData.get("personalEmail"),
-      phoneNumber: formData.get("phoneNumber"),
-    };
-    setGeneralInfo(data);
-    setGeneralInfoSubmitted(true);
+  // Auto-save to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cvData));
+    } catch (e) {
+      console.error("Failed to auto-save CV data:", e);
+    }
+  }, [cvData]);
+
+  const showToast = (message) => {
+    setToast(message);
+    setTimeout(() => {
+      setToast(null);
+    }, 3000);
   };
 
-  const handleWorkInfoSubmit = (e) => {
-    const formData = new FormData(e.target);
-    const data = {
-      companyName: formData.get("companyName"),
-      positionTitle: formData.get("positionTitle"),
-      listOfDuties: formData.get("listOfDuties"),
-      dateStarted: formData.get("dateStarted"),
-      dateEnded: formData.get("dateEnded"),
-    };
-    setWorkInfo(data);
-    setWorkInfoSubmitted(true);
+  const updateSectionData = (section, newItems) => {
+    setCvData((prev) => ({
+      ...prev,
+      [section]: newItems
+    }));
   };
 
-  const checkAllInfoSubmitted = () => {
-    if (generalInfoSubmitted && workInfoSubmitted && educationInfoSubmitted) {
-      setAllInfoSubmitted(true);
+  const handleLoadSample = (sampleProfile) => {
+    if (window.confirm("Load sample resume? This will overwrite your current edits.")) {
+      setCvData(sampleProfile);
+      showToast("✨ Sample profile loaded successfully!");
     }
   };
-  return (
-    <>
-      <Header />
-      <div className="app-body">
-        <h1>Create Your CV</h1>
-        {!generalInfoSubmitted && !allInfoSubmitted && (
-          <GeneralInfo
-            generalInfo={generalInfo}
-            handleGeneralInfoSubmit={handleGeneralInfoSubmit}
-          />
-        )}
-        {generalInfoSubmitted && (
-          <div className="completed-info">
-            <div>
-              <p>
-                <b>Name: </b>
-                {generalInfo.fullName}
-              </p>
-              <p>
-                <b>Email: </b>
-                {generalInfo.personalEmail}
-              </p>
-              <p>
-                <b>Phone: </b>
-                {generalInfo.phoneNumber}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setGeneralInfoSubmitted(false);
-              }}
-            >
-              Edit General Info
-            </button>
-          </div>
-        )}
-        {!educationInfoSubmitted && !allInfoSubmitted && (
-          <EducationalInfo
-            educationalInfo={educationalInfo}
-            handleSchoolSubmit={handleSchoolSubmit}
-          />
-        )}
-        {educationInfoSubmitted && (
-          <div className="completed-info">
-            <div>
-              <p>
-                <b>School: </b>
-                {educationalInfo.schoolName}
-              </p>
-              <p>
-                <b>Major: </b>
-                {educationalInfo.schoolMajor}
-              </p>
-              <p>
-                <b>Date Started: </b>
-                {educationalInfo.schoolStartDate + " - "}
 
-                <b>Date Ended: </b>
-                {educationalInfo.schoolEndDate}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setEducationInfoSubmitted(false);
-              }}
-            >
-              Edit Education Info
-            </button>
-          </div>
-        )}
-        {!workInfoSubmitted && !allInfoSubmitted && (
-          <WorkInfo
-            workInfo={workInfo}
-            handleWorkInfoSubmit={handleWorkInfoSubmit}
-          />
-        )}
-        {workInfoSubmitted && (
-          <div className="completed-info">
-            <div>
-              <p>
-                <b>Company:</b> {workInfo.companyName}
-              </p>
-              <p>
-                <b>Position:</b> {workInfo.positionTitle}
-              </p>
-              <p>
-                <b>Date Started:</b> {workInfo.dateStarted + " - "}{" "}
-                <b>Date Ended:</b>
-                {workInfo.dateEnded}
-              </p>
-            </div>
-            <button
-              onClick={() => {
-                setWorkInfoSubmitted(false);
-              }}
-            >
-              Edit Work Info
-            </button>
-          </div>
-        )}
-        {allInfoSubmitted && (
-          <div className="print-completed-info">
-            Print out resume!
-            <PDFDownloadLink
-              document={
-                <ResumePDF
-                  generalInfo={generalInfo}
-                  workInfo={workInfo}
-                  educationalInfo={educationalInfo}
-                />
-              }
-              fileName="resume.pdf"
-            >
-              <button>Print</button>
-            </PDFDownloadLink>
-          </div>
-        )}
+  const handleReset = () => {
+    if (window.confirm("Are you sure you want to clear all data and start from scratch?")) {
+      const emptyData = {
+        personal: {
+          fullName: "",
+          jobTitle: "",
+          email: "",
+          phone: "",
+          location: "",
+          linkedin: "",
+          github: "",
+          portfolio: "",
+          summary: ""
+        },
+        work: [],
+        education: [],
+        skills: [],
+        projects: [],
+        certifications: [],
+        languages: [],
+        customSection: []
+      };
+      setCvData(emptyData);
+      showToast("🧹 CV reset to empty template.");
+    }
+  };
+
+  const handleExportJSON = () => {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cvData, null, 2));
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/\s+/g, "_")}_backup.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    showToast("💾 CV data exported as JSON backup.");
+  };
+
+  const handleImportJSON = (file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const imported = JSON.parse(e.target.result);
+        if (imported && (imported.personal || imported.work || imported.education)) {
+          setCvData(imported);
+          showToast("📂 CV data restored from JSON file!");
+        } else {
+          alert("Invalid JSON format. Please upload a valid CV backup file.");
+        }
+      } catch (err) {
+        alert("Error parsing JSON file: " + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+
+  const handlePrint = () => {
+    window.print();
+  };
+
+  // Render the currently active editor form
+  const renderActiveForm = () => {
+    switch (activeSection) {
+      case "work":
+        return <WorkForm items={cvData?.work || []} onChange={(items) => updateSectionData("work", items)} />;
+      case "education":
+        return <EducationForm items={cvData?.education || []} onChange={(items) => updateSectionData("education", items)} />;
+      case "skills":
+        return <SkillsForm items={cvData?.skills || []} onChange={(items) => updateSectionData("skills", items)} />;
+      case "projects":
+        return <ProjectsForm items={cvData?.projects || []} onChange={(items) => updateSectionData("projects", items)} />;
+      case "certifications":
+        return <CertificationsForm items={cvData?.certifications || []} onChange={(items) => updateSectionData("certifications", items)} />;
+      case "languages":
+        return <LanguagesForm items={cvData?.languages || []} onChange={(items) => updateSectionData("languages", items)} />;
+      case "custom":
+        return <CustomSectionForm items={cvData?.customSection || []} onChange={(items) => updateSectionData("customSection", items)} />;
+      case "personal":
+      default:
+        return <PersonalForm data={cvData?.personal || {}} onChange={(data) => updateSectionData("personal", data)} />;
+    }
+  };
+
+  const pdfElement = (
+    <PDFDownloadLink
+      document={<ResumePDF data={cvData} template={template} colorTheme={colorTheme} />}
+      fileName={`${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/\s+/g, "_")}_resume.pdf`}
+      className="btn btn-primary"
+      style={{ textDecoration: "none" }}
+    >
+      {({ loading }) => (
+        <>
+          <Download size={16} />
+          <span>{loading ? "Preparing PDF..." : "Download PDF"}</span>
+        </>
+      )}
+    </PDFDownloadLink>
+  );
+
+  return (
+    <div className="app-wrapper">
+      <Header
+        theme={theme}
+        toggleTheme={() => setTheme(theme === "dark" ? "light" : "dark")}
+        colorTheme={colorTheme}
+        setColorTheme={setColorTheme}
+        fontFamily={fontFamily}
+        setFontFamily={setFontFamily}
+        template={template}
+        setTemplate={setTemplate}
+        onLoadSample={handleLoadSample}
+        onReset={handleReset}
+        onExportJSON={handleExportJSON}
+        onImportJSON={handleImportJSON}
+        onPrint={handlePrint}
+        pdfElement={pdfElement}
+      />
+
+      {/* Mobile Tab bar */}
+      <div className="mobile-tabs no-print">
+        <button
+          onClick={() => setMobileTab("editor")}
+          className={mobileTab === "editor" ? "active" : ""}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
+        >
+          <Edit3 size={16} />
+          <span>Edit CV</span>
+        </button>
+        <button
+          onClick={() => setMobileTab("preview")}
+          className={mobileTab === "preview" ? "active" : ""}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem" }}
+        >
+          <Eye size={16} />
+          <span>Live Preview</span>
+        </button>
       </div>
+
+      <main className="app-workspace">
+        {/* Editor Column */}
+        <div className={`editor-column ${mobileTab === "preview" ? "hidden-mobile" : ""} no-print`}>
+          <SectionNav activeSection={activeSection} setActiveSection={setActiveSection} />
+          <div className="editor-content">
+            {renderActiveForm()}
+          </div>
+        </div>
+
+        {/* Live Preview Column */}
+        <div className={`preview-column ${mobileTab === "editor" ? "hidden-mobile" : ""}`} style={{ flex: 1, width: "100%" }}>
+          <CVPreview
+            data={cvData}
+            template={template}
+            colorTheme={colorTheme}
+            fontFamily={fontFamily}
+          />
+        </div>
+      </main>
+
       <Footer />
-    </>
+
+      {/* Toast Notification */}
+      {toast && (
+        <div className="toast-container no-print">
+          <div className="toast">
+            <CheckCircle2 size={18} style={{ color: "var(--accent-primary)" }} />
+            <span>{toast}</span>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 

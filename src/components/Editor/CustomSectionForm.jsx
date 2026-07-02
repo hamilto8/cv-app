@@ -1,5 +1,5 @@
 import React from "react";
-import { PlusCircle, Plus, Trash2, ArrowUp, ArrowDown } from "lucide-react";
+import { PlusCircle, Plus, Trash2 } from "lucide-react";
 
 const CustomSectionForm = ({ items = [], onChange }) => {
   const handleAddSection = () => {

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Briefcase, Plus, Trash2, ArrowUp, ArrowDown, BookOpen, Check, X } from "lucide-react";
+import { Briefcase, Plus, Trash2, ArrowUp, ArrowDown, BookOpen, X } from "lucide-react";
 import ActionVerbsModal from "../SmartAssistant/ActionVerbsModal";
 
 const WorkForm = ({ items = [], onChange }) => {

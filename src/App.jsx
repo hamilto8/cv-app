@@ -108,7 +108,7 @@ function App() {
         projects: [],
         certifications: [],
         languages: [],
-        customSection: []
+        customSections: []
       };
       setCvData(emptyData);
       showToast("🧹 CV reset to empty template.");
@@ -164,7 +164,7 @@ function App() {
       case "languages":
         return <LanguagesForm items={cvData?.languages || []} onChange={(items) => updateSectionData("languages", items)} />;
       case "custom":
-        return <CustomSectionForm items={cvData?.customSection || []} onChange={(items) => updateSectionData("customSection", items)} />;
+        return <CustomSectionForm items={cvData?.customSections || []} onChange={(items) => updateSectionData("customSections", items)} />;
       case "personal":
       default:
         return <PersonalForm data={cvData?.personal || {}} onChange={(data) => updateSectionData("personal", data)} />;

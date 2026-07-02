@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ZoomIn, ZoomOut, Maximize2, ShieldCheck, CheckCircle2 } from "lucide-react";
+import { ZoomIn, ZoomOut, ShieldCheck } from "lucide-react";
 import ModernExecutive from "./templates/ModernExecutive";
 import MinimalistTech from "./templates/MinimalistTech";
 import CreativeGlass from "./templates/CreativeGlass";

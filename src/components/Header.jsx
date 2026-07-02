@@ -244,7 +244,7 @@ const Header = ({
           title="Backup / Export CV Data as JSON"
           style={{ padding: "0.45rem 0.6rem" }}
         >
-          <Upload size={16} />
+          <Download size={16} />
           <span style={{ fontSize: "0.8rem" }}>Backup</span>
         </button>
         <button
@@ -253,7 +253,7 @@ const Header = ({
           title="Restore / Import CV Data from JSON"
           style={{ padding: "0.45rem 0.6rem" }}
         >
-          <Download size={16} />
+          <Upload size={16} />
           <span style={{ fontSize: "0.8rem" }}>Restore</span>
         </button>
         <input

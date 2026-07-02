@@ -49,7 +49,7 @@ Choose from four beautifully engineered, layout-optimized templates:
 - **Publication-Ready Output**: Powered by `@react-pdf/renderer`, generating vector-grade PDFs that remain crisp at any zoom level and print flawlessly.
 - **Direct System Print**: Trigger native print dialogues or save directly to PDF with optimized page margins.
 
-### 💡 Smart Action Verbs Assistant
+### 💡 Action Verbs Library
 - **Vocabulary Enhancement**: Integrated vocabulary booster categorized by leadership, innovation, execution, analysis, and communication to help you write high-impact achievement bullet points.
 
 ---
@@ -75,7 +75,7 @@ Choose from four beautifully engineered, layout-optimized templates:
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/cv-app.git
+git clone https://github.com/hamilto8/cv-app.git
 cd cv-app
 ```
 
@@ -135,7 +135,7 @@ cv-app/
 
 1. **Choose Your Template & Styling**: Click the palette icon in the header to select from 4 editorial templates, 6 color themes, and 5 typography suites.
 2. **Fill in Your Career Data**: Use the left sidebar navigation to transition between **Personal Info**, **Work Experience**, **Education**, **Skills**, **Projects**, **Certifications**, **Languages**, and **Custom Sections**.
-3. **Power Up Your Bullets**: When writing work experience or project descriptions, open the **Smart Action Verbs** assistant to discover strong verbs that highlight your achievements.
+3. **Power Up Your Bullets**: When writing work experience or project descriptions, open the **Action Verbs** library to discover strong verbs that highlight your achievements.
 4. **Backup Your Work**: Click **Export JSON** in the header dropdown to save a local backup of your data. Use **Import JSON** anytime to restore it.
 5. **Download & Share**: When you're satisfied with the preview, click **Download PDF** for a publication-ready document or use **Print** for direct system printing.
 

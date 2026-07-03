@@ -21,11 +21,28 @@ const STORAGE_KEY = "cv_studio_data";
 const THEME_KEY = "cv_studio_theme";
 const COLOR_KEY = "cv_studio_color";
 
+const safeGetItem = (key, fallback = null) => {
+  try {
+    return localStorage.getItem(key) || fallback;
+  } catch (e) {
+    console.warn("localStorage read failed:", e);
+    return fallback;
+  }
+};
+
+const safeSetItem = (key, value) => {
+  try {
+    localStorage.setItem(key, value);
+  } catch (e) {
+    console.warn("localStorage write failed:", e);
+  }
+};
+
 function App() {
   // Load saved CV data or default sample
   const [cvData, setCvData] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY) || localStorage.getItem("antigravity_cv_studio_data");
+      const saved = safeGetItem(STORAGE_KEY) || safeGetItem("antigravity_cv_studio_data");
       if (saved) return JSON.parse(saved);
     } catch (e) {
       console.error("Failed to load CV from localStorage:", e);
@@ -33,9 +50,9 @@ function App() {
     return defaultCVData;
   });
 
-  const [theme, setTheme] = useState(() => localStorage.getItem(THEME_KEY) || localStorage.getItem("antigravity_cv_theme") || "dark");
+  const [theme, setTheme] = useState(() => safeGetItem(THEME_KEY) || safeGetItem("antigravity_cv_theme") || "dark");
   const [colorTheme, setColorTheme] = useState(() => {
-    const saved = localStorage.getItem(COLOR_KEY) || localStorage.getItem("antigravity_cv_color");
+    const saved = safeGetItem(COLOR_KEY) || safeGetItem("antigravity_cv_color");
     if (saved === "indigo" || saved === "royal" || saved === "violet" || saved === "slate") {
       return "monochrome";
     }
@@ -50,18 +67,18 @@ function App() {
   // Apply Theme and Color to DOM
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem(THEME_KEY, theme);
+    safeSetItem(THEME_KEY, theme);
   }, [theme]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-color", colorTheme);
-    localStorage.setItem(COLOR_KEY, colorTheme);
+    safeSetItem(COLOR_KEY, colorTheme);
   }, [colorTheme]);
 
   // Auto-save to localStorage
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(cvData));
+      safeSetItem(STORAGE_KEY, JSON.stringify(cvData));
     } catch (e) {
       console.error("Failed to auto-save CV data:", e);
     }

@@ -57,7 +57,7 @@ const PersonalForm = ({ data, onChange }) => {
               id="email"
               name="email"
               type="email"
-              placeholder="alex@domain.com"
+              placeholder="alex.rivera@example.com"
               value={data?.email || ""}
               onChange={handleChange}
             />
@@ -70,7 +70,7 @@ const PersonalForm = ({ data, onChange }) => {
               id="phone"
               name="phone"
               type="tel"
-              placeholder="+1 (555) 234-5678"
+              placeholder="+1 (555) 019-0000"
               value={data?.phone || ""}
               onChange={handleChange}
             />
@@ -100,7 +100,7 @@ const PersonalForm = ({ data, onChange }) => {
               id="linkedin"
               name="linkedin"
               type="url"
-              placeholder="https://linkedin.com/in/username"
+              placeholder="https://linkedin.com/in/example-username"
               value={data?.linkedin || ""}
               onChange={handleChange}
             />
@@ -113,7 +113,7 @@ const PersonalForm = ({ data, onChange }) => {
               id="github"
               name="github"
               type="url"
-              placeholder="https://github.com/username"
+              placeholder="https://github.com/example-username"
               value={data?.github || ""}
               onChange={handleChange}
             />
@@ -128,7 +128,7 @@ const PersonalForm = ({ data, onChange }) => {
             id="website"
             name="website"
             type="url"
-            placeholder="https://yourdomain.dev"
+            placeholder="https://portfolio.example.com"
             value={data?.website || ""}
             onChange={handleChange}
           />

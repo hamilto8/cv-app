@@ -128,7 +128,7 @@ const ProjectsForm = ({ items = [], onChange }) => {
                 <label>Live Demo URL</label>
                 <input
                   type="url"
-                  placeholder="https://devpulse-demo.io"
+                  placeholder="https://project.example.com"
                   value={item.link || ""}
                   onChange={(e) => handleFieldChange(index, "link", e.target.value)}
                 />
@@ -137,7 +137,7 @@ const ProjectsForm = ({ items = [], onChange }) => {
                 <label>Repository / Source Code URL</label>
                 <input
                   type="url"
-                  placeholder="https://github.com/username/project"
+                  placeholder="https://github.com/example-username/project-name"
                   value={item.repo || ""}
                   onChange={(e) => handleFieldChange(index, "repo", e.target.value)}
                 />

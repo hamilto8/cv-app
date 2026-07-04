@@ -137,7 +137,7 @@ const CertificationsForm = ({ items = [], onChange }) => {
                 <label>Credential Verification URL (Optional)</label>
                 <input
                   type="url"
-                  placeholder="https://aws.amazon.com/verification/..."
+                  placeholder="https://verification.example.com/cert/12345"
                   value={item.link || ""}
                   onChange={(e) => handleFieldChange(index, "link", e.target.value)}
                 />

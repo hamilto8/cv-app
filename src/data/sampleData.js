@@ -3,12 +3,12 @@ export const sampleProfiles = {
     personal: {
       fullName: "Alex Rivera",
       jobTitle: "Senior Full Stack Engineer",
-      email: "alex.rivera@devmail.io",
-      phone: "+1 (555) 234-5678",
+      email: "alex.rivera@example.com",
+      phone: "+1 (555) 019-0001",
       location: "San Francisco, CA (Hybrid)",
-      linkedin: "https://linkedin.com/in/alexrivera-dev",
-      github: "https://github.com/alexrivera",
-      website: "https://alexrivera.dev",
+      linkedin: "https://linkedin.com/in/example-software-engineer",
+      github: "https://github.com/example-username",
+      website: "https://portfolio.example.com",
       summary: "Innovative and results-driven Senior Full Stack Engineer with 8+ years of experience architecting scalable cloud applications, distributed microservices, and responsive web interfaces. Proven track record of mentoring engineering teams, optimizing system latency by up to 45%, and spearheading the migration of legacy monoliths to serverless architectures."
     },
     work: [
@@ -85,21 +85,21 @@ export const sampleProfiles = {
         name: "DevPulse - Real-Time CI/CD Telemetry Platform",
         description: "An open-source developer dashboard monitoring deployment health, test flake rates, and build metrics in real time via WebSockets.",
         technologies: "Next.js, TypeScript, Tailwind CSS, Go, WebSockets, Redis",
-        link: "https://devpulse-demo.io",
-        repo: "https://github.com/alexrivera/devpulse"
+        link: "https://devpulse.example.com",
+        repo: "https://github.com/example-username/devpulse"
       },
       {
         id: "p2",
         name: "CloudGuard - Automated IAM Security Auditor",
         description: "A CLI tool and web portal that scans AWS IAM policies for over-privileged roles and security vulnerabilities, generating automated remediation scripts.",
         technologies: "Python, AWS SDK, React, Chart.js, Docker",
-        link: "https://cloudguard-sec.dev",
-        repo: "https://github.com/alexrivera/cloudguard"
+        link: "https://cloudguard.example.org",
+        repo: "https://github.com/example-username/cloudguard"
       }
     ],
     certifications: [
-      { id: "c1", name: "AWS Certified Solutions Architect – Professional", issuer: "Amazon Web Services", date: "2023-08", link: "https://aws.amazon.com" },
-      { id: "c2", name: "Certified Kubernetes Administrator (CKA)", issuer: "Cloud Native Computing Foundation", date: "2022-04", link: "https://cncf.io" }
+      { id: "c1", name: "AWS Certified Solutions Architect – Professional", issuer: "Amazon Web Services", date: "2023-08", link: "https://aws.example.com/verify/c1" },
+      { id: "c2", name: "Certified Kubernetes Administrator (CKA)", issuer: "Cloud Native Computing Foundation", date: "2022-04", link: "https://cncf.example.org/verify/c2" }
     ],
     languages: [
       { id: "l1", name: "English", level: "Native / Bilingual" },
@@ -120,11 +120,11 @@ export const sampleProfiles = {
     personal: {
       fullName: "Sarah Jenkins",
       jobTitle: "Principal Product Manager",
-      email: "sarah.jenkins@productlead.com",
-      phone: "+1 (555) 890-1234",
+      email: "sarah.jenkins@example.org",
+      phone: "+1 (555) 019-0002",
       location: "New York, NY",
-      linkedin: "https://linkedin.com/in/sarahjenkins-pm",
-      website: "https://sarahjenkins.io",
+      linkedin: "https://linkedin.com/in/example-product-manager",
+      website: "https://pm-portfolio.example.org",
       summary: "Strategic Principal Product Manager with 9+ years driving the vision, strategy, and execution of high-growth B2B SaaS and AI-powered enterprise tools. Expert in cross-functional leadership, user-centric discovery, and data-driven prioritization, delivering products that have scaled annual recurring revenue (ARR) from $5M to $35M+."
     },
     work: [
@@ -192,7 +192,7 @@ export const sampleProfiles = {
         name: "PM Mentorship Initiative",
         description: "Founded an online mentoring community connecting 200+ aspiring product managers from underrepresented backgrounds with tech industry leaders.",
         technologies: "Community Building, Mentorship, Public Speaking",
-        link: "https://pm-mentors.org"
+        link: "https://pm-mentors.example.org"
       }
     ],
     certifications: [
@@ -209,11 +209,11 @@ export const sampleProfiles = {
     personal: {
       fullName: "Marcus Chen",
       jobTitle: "Lead UX/UI Designer & Design Systems Architect",
-      email: "marcus@chendesign.studio",
-      phone: "+1 (555) 456-7890",
+      email: "marcus.chen@example.net",
+      phone: "+1 (555) 019-0003",
       location: "Seattle, WA (Remote)",
-      linkedin: "https://linkedin.com/in/marcuschen-ux",
-      website: "https://marcuschen.design",
+      linkedin: "https://linkedin.com/in/example-ux-designer",
+      website: "https://ux-design.example.net",
       summary: "Passionate Lead UX/UI Designer with 7+ years of experience crafting intuitive, human-centered digital experiences and scalable design systems. Blends aesthetic precision with empirical UX research to transform complex enterprise problems into elegant, accessible, and delightful interfaces."
     },
     work: [
@@ -272,7 +272,7 @@ export const sampleProfiles = {
         name: "Aura - Mindful Focus & Productivity Mobile App",
         description: "An iOS/Android concept app utilizing ambient soundscapes and gentle haptics to promote deep focus without visual distraction.",
         technologies: "Figma, React Native UI, Protopie, User Journey Mapping",
-        link: "https://marcuschen.design/aura"
+        link: "https://aura-app.example.net"
       }
     ],
     certifications: [

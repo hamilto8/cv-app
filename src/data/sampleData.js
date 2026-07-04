@@ -3,11 +3,11 @@ export const sampleProfiles = {
     personal: {
       fullName: "Alex Rivera",
       jobTitle: "Senior Full Stack Engineer",
-      email: "alex.rivera@example.com",
-      phone: "+1 (555) 019-0001",
+      email: "email@example.com",
+      phone: "+1 (555) 000-0000",
       location: "San Francisco, CA (Hybrid)",
-      linkedin: "https://linkedin.com/in/example-software-engineer",
-      github: "https://github.com/example-username",
+      linkedin: "https://linkedin.com/in/username",
+      github: "https://github.com/username",
       website: "https://portfolio.example.com",
       summary: "Innovative and results-driven Senior Full Stack Engineer with 8+ years of experience architecting scalable cloud applications, distributed microservices, and responsive web interfaces. Proven track record of mentoring engineering teams, optimizing system latency by up to 45%, and spearheading the migration of legacy monoliths to serverless architectures."
     },
@@ -120,11 +120,11 @@ export const sampleProfiles = {
     personal: {
       fullName: "Sarah Jenkins",
       jobTitle: "Principal Product Manager",
-      email: "sarah.jenkins@example.org",
-      phone: "+1 (555) 019-0002",
+      email: "email@example.com",
+      phone: "+1 (555) 000-0000",
       location: "New York, NY",
-      linkedin: "https://linkedin.com/in/example-product-manager",
-      website: "https://pm-portfolio.example.org",
+      linkedin: "https://linkedin.com/in/username",
+      website: "https://portfolio.example.com",
       summary: "Strategic Principal Product Manager with 9+ years driving the vision, strategy, and execution of high-growth B2B SaaS and AI-powered enterprise tools. Expert in cross-functional leadership, user-centric discovery, and data-driven prioritization, delivering products that have scaled annual recurring revenue (ARR) from $5M to $35M+."
     },
     work: [
@@ -209,11 +209,11 @@ export const sampleProfiles = {
     personal: {
       fullName: "Marcus Chen",
       jobTitle: "Lead UX/UI Designer & Design Systems Architect",
-      email: "marcus.chen@example.net",
-      phone: "+1 (555) 019-0003",
+      email: "email@example.com",
+      phone: "+1 (555) 000-0000",
       location: "Seattle, WA (Remote)",
-      linkedin: "https://linkedin.com/in/example-ux-designer",
-      website: "https://ux-design.example.net",
+      linkedin: "https://linkedin.com/in/username",
+      website: "https://portfolio.example.com",
       summary: "Passionate Lead UX/UI Designer with 7+ years of experience crafting intuitive, human-centered digital experiences and scalable design systems. Blends aesthetic precision with empirical UX research to transform complex enterprise problems into elegant, accessible, and delightful interfaces."
     },
     work: [

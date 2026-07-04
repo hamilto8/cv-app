@@ -137,7 +137,7 @@ const ProjectsForm = ({ items = [], onChange }) => {
                 <label>Repository / Source Code URL</label>
                 <input
                   type="url"
-                  placeholder="https://github.com/example-username/project-name"
+                  placeholder="https://github.com/username/project"
                   value={item.repo || ""}
                   onChange={(e) => handleFieldChange(index, "repo", e.target.value)}
                 />

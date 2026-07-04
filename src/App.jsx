@@ -43,7 +43,14 @@ function App() {
   const [cvData, setCvData] = useState(() => {
     try {
       const saved = safeGetItem(STORAGE_KEY) || safeGetItem("antigravity_cv_studio_data");
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        // Migrate old sample data to the new 100% anonymous standardized contact info
+        if (parsed?.personal?.email && (parsed.personal.email.includes("chendesign.studio") || parsed.personal.email.includes("devmail.io") || parsed.personal.email.includes("productlead.com") || parsed.personal.email.includes("marcus.chen@") || parsed.personal.email.includes("alex.rivera@") || parsed.personal.email.includes("sarah.jenkins@"))) {
+          return defaultCVData;
+        }
+        return parsed;
+      }
     } catch (e) {
       console.error("Failed to load CV from localStorage:", e);
     }

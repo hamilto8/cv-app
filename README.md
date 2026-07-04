@@ -10,6 +10,12 @@
   <img src="https://img.shields.io/badge/ATS--Friendly-Optimized-3b82f6?style=for-the-badge&logo=checkmarx&logoColor=white" alt="ATS Friendly" />
 </p>
 
+<p align="center">
+  <a href="public/screenshot.png">
+    <img src="public/screenshot.png" alt="CV Studio Interactive Live Preview Workspace" width="100%" />
+  </a>
+</p>
+
 ---
 
 ## 📖 Overview

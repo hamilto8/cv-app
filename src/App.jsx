@@ -140,22 +140,35 @@ function App() {
   };
 
   const handleExportJSON = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(cvData, null, 2));
-    const downloadAnchor = document.createElement("a");
-    downloadAnchor.setAttribute("href", dataStr);
-    downloadAnchor.setAttribute("download", `${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/\s+/g, "_")}_backup.json`);
-    document.body.appendChild(downloadAnchor);
-    downloadAnchor.click();
-    downloadAnchor.remove();
-    showToast("💾 CV data exported as JSON backup.");
+    try {
+      const jsonStr = JSON.stringify(cvData, null, 2);
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const downloadAnchor = document.createElement("a");
+      downloadAnchor.href = url;
+      downloadAnchor.download = `${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/[^a-z0-9_-]/gi, "_")}_backup.json`;
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      document.body.removeChild(downloadAnchor);
+      URL.revokeObjectURL(url);
+      showToast("💾 CV data exported as JSON backup.");
+    } catch (e) {
+      console.error("Failed to export JSON:", e);
+      alert("Error exporting CV data.");
+    }
   };
 
   const handleImportJSON = (file) => {
+    if (!file) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("File is too large. Please upload a valid JSON backup under 5MB.");
+      return;
+    }
     const reader = new FileReader();
     reader.onload = (e) => {
       try {
         const imported = JSON.parse(e.target.result);
-        if (imported && (imported.personal || imported.work || imported.education)) {
+        if (imported && typeof imported === "object" && !Array.isArray(imported) && (imported.personal || imported.work || imported.education)) {
           setCvData(imported);
           showToast("📂 CV data restored from JSON file!");
         } else {
@@ -164,6 +177,9 @@ function App() {
       } catch (err) {
         alert("Error parsing JSON file: " + err.message);
       }
+    };
+    reader.onerror = () => {
+      alert("Failed to read backup file.");
     };
     reader.readAsText(file);
   };
@@ -198,7 +214,7 @@ function App() {
   const pdfElement = (
     <PDFDownloadLink
       document={<ResumePDF data={cvData} template={template} colorTheme={colorTheme} />}
-      fileName={`${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/\s+/g, "_")}_resume.pdf`}
+      fileName={`${(cvData?.personal?.fullName || "Resume").toLowerCase().replace(/[^a-z0-9_-]/gi, "_")}_resume.pdf`}
       className="btn btn-primary"
       style={{ textDecoration: "none" }}
     >
